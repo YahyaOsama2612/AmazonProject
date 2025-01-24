@@ -14,11 +14,6 @@ const Navbar = () => {
             Cart({cartItems.length})
           </NavLink>
         </li>
-        <li style={{marginRight:"100px", listStyle:"none" }}>
-          <NavLink style={{textDecoration:"none",color:"#000000"}} to="/signin">
-            Logout
-          </NavLink>
-        </li>
       </ul>
     </nav>
     
