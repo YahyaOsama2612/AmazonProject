@@ -1,3 +1,4 @@
+import { memo } from "react";
 import Navbar from "../components/NavBar";
 import Productslist from "../components/Productslist";
 
@@ -10,4 +11,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default memo(HomePage) ;

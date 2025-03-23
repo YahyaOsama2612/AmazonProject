@@ -4,6 +4,8 @@ import {
   selectCartItems,
 } from "../app/applications/cart/cartSlice";
 import { useAppDispatch } from "../app/store";
+import { Grid } from "@mui/material";
+import { memo } from "react";
 
 const CartPage = () => {
   const { cartItems } = useSelector(selectCartItems);
@@ -14,27 +16,25 @@ const CartPage = () => {
     }, 0);
   };
   return cartItems.length > 0 ? (
-    <div style={{ display: "flex", flexWrap: "wrap", gap: "40px" , justifyContent:"center" }}>
+    <Grid container direction="row" justifyContent="center" spacing={3}>
       {cartItems.map((product) => (
-        <div key={product.id}>
+        <Grid xs={12} sm={6} md={4} lg={3} key={product.id}>
           <img
-            style={{ marginTop:"50px",width: "200px" }}
+            style={{ marginTop: "50px", width: "200px" }}
             src={product.thumbnail}
             alt={`product ${product.id} image`}
           />
 
-          <div className="mt-4 px-5 pb-5">
+          <div>
             <h5 style={{ margin: 20 }}>{product.title}</h5>
 
-            <div className="mt-2 space-y-3 flex flex-col  justify-between">
+            <div>
               <p>
                 <span style={{ margin: 20 }}>${product.price}</span>
               </p>
               <div style={{ margin: 20 }}>
-                <span className="text-1xl font-bold text-slate-900">
-                  Quantity: {product.quantity}
-                </span>
-                <a className="cursor-pointer">
+                <span>Quantity: {product.quantity}</span>
+                <a>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 448 512"
@@ -47,7 +47,7 @@ const CartPage = () => {
               </div>
             </div>
           </div>
-        </div>
+        </Grid>
       ))}
       <div
         style={{
@@ -61,10 +61,10 @@ const CartPage = () => {
       >
         Total Price: ${calculateTotalPrice().toFixed(2)}
       </div>
-    </div>
+    </Grid>
   ) : (
-    <h1 className="font-bold text-3xl">Cart is Empty</h1>
+    <h1>Cart is Empty</h1>
   );
 };
 
-export default CartPage;
+export default memo(CartPage) ;
