@@ -11,9 +11,10 @@ export const addItemToShoppingCart = (
   if (exists) {
     return cartItems.map((item: IProduct) =>
       item.id === actionPayload.id
-        ? { ...item, quantity: item.quantity + 1 }
+        ? { ...item, quantity: item.quantity + 1 } 
         : item
     );
+    
   }
 
   return [...cartItems, { ...actionPayload, quantity: 1 }];

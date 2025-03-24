@@ -1,6 +1,6 @@
 import { addItemToCart } from "../app/applications/cart/cartSlice";
 import { useDispatch } from "react-redux";
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 import {
   Box,
   Card,
@@ -24,9 +24,9 @@ const Products = () => {
     queryKey: ["productList"],
     url: "/products?limit=10&select=title,price,thumbnail",
   });
+ 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error loading products</div>;
-  
 
   return (
     <Grid container direction="row" justifyContent="center" spacing={3}>
@@ -39,8 +39,7 @@ const Products = () => {
                 flexDirection: "column",
                 boxShadow: 3,
                 borderRadius: "8px",
-                
-                border:"1px solid pink",
+                border: "3px solid pink",
               }}
             >
               <CardMedia
@@ -56,7 +55,7 @@ const Products = () => {
               <CardContent sx={{ padding: 2 }}>
                 <Typography
                   variant="h6"
-                  sx={{ fontWeight: "bold", marginBottom: 1, fontSize: "17px" }}
+                  sx={{ fontWeight: "bold", marginBottom: 1, fontSize: "13px" }}
                 >
                   {product.title}
                 </Typography>
@@ -70,9 +69,12 @@ const Products = () => {
                 <Box sx={{ display: "flex", justifyContent: "center" }}>
                   <motion.div
                     initial={{ scale: 1 }}
-                    whileHover={{ scale: 1.2 }} 
+                    whileHover={{ scale: 1.2 }}
                     whileTap={{ scale: 0.8 }}
-                    onClick={() => dispatch(addItemToCart(product))}
+                    onClick={() => {
+                      dispatch(addItemToCart(product)); 
+                    }}
+                    
                   >
                     <ShoppingCart style={{ cursor: "pointer" }} />
                   </motion.div>
@@ -90,4 +92,4 @@ const Products = () => {
   );
 };
 
-export default memo(Products) ;
+export default memo(Products);

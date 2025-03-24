@@ -6,11 +6,28 @@ import {
   removeItemFromShoppingCart,
 } from "../../../shared/utilits/functions";
 import { RootState } from "../../store";
-
-
+const loadCartFromLocalStorage = (): IProduct[] => {
+  const savedCart = localStorage.getItem("cartItems");
+  if (savedCart) {
+    try {
+      return JSON.parse(savedCart);
+    } catch (e) {
+      console.error("Error parsing cart from localStorage", e);
+      return [];
+    }
+  }
+  return [];
+};
+const saveCartToLocalStorage = (cartItems: IProduct[]) => {
+  try {
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  } catch (e) {
+    console.error("Error saving cart to localStorage", e);
+  }
+};
 
 const initialState: CounterState = {
-  cartItems: [],
+  cartItems: loadCartFromLocalStorage()
 };
 
 const cartSlice = createSlice({
@@ -22,12 +39,14 @@ const cartSlice = createSlice({
         state.cartItems,
         actionPayload.payload
       );
+      saveCartToLocalStorage(state.cartItems)
     },
     removeItemToCart: (state, actionPayload: PayloadAction<IProduct>) => {
       state.cartItems = removeItemFromShoppingCart(
         state.cartItems,
         actionPayload.payload
       );
+      saveCartToLocalStorage(state.cartItems)
     },
   },
 });

@@ -15,9 +15,11 @@ import {
 import { memo } from "react";
 import { motion } from "framer-motion";
 
+
 const CartPage = () => {
   const { cartItems } = useSelector(selectCartItems);
   const dispatch = useAppDispatch();
+  
   const calculateTotalPrice = () => {
     return cartItems.reduce((total, product) => {
       return total + product.price * product.quantity;
@@ -25,15 +27,17 @@ const CartPage = () => {
   };
   return cartItems.length > 0 ? (
     <Grid container direction="row" justifyContent="center" spacing={3}>
+      
       {cartItems.map((product) => (
         <Grid item xs={12} sm={6} md={4} lg={3} key={product.id} mt={5}>
+      
           <Card
             sx={{
               display: "flex",
               flexDirection: "column",
               boxShadow: 3,
               borderRadius: "8px",
-              border: "1px solid pink",
+              border: "3px solid pink",
             }}
           >
             {" "}
@@ -60,18 +64,28 @@ const CartPage = () => {
               >
                 ${product.price}
               </Typography>
-              <Box sx={{ display: "flex", justifyContent: "center" }}>
+
+              <Box sx={{ display: "flex" }}>
+                <Typography
+                  variant="h5"
+                  sx={{ fontWeight: "bold", marginTop: -2 }}
+                >
+                  <span>Quantity: {product.quantity}</span>
+                </Typography>
                 <motion.div
                   initial={{ scale: 1 }}
                   whileHover={{ scale: 1.2 }}
                   whileTap={{ scale: 0.8 }}
                 >
-                  <span>Quantity: {product.quantity}</span>
                   <a>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 448 512"
-                      style={{ height: 15, marginLeft: 10 }}
+                      style={{
+                        height: 15,
+                        marginLeft: 10,
+                        transform: "translate(0px, -7px)",
+                      }}
                       onClick={() => dispatch(removeItemToCart(product))}
                     >
                       <path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z" />
@@ -83,6 +97,7 @@ const CartPage = () => {
           </Card>
         </Grid>
       ))}
+      
       <div
         style={{
           position: "fixed",
@@ -94,6 +109,7 @@ const CartPage = () => {
         }}
       >
         Total Price: ${calculateTotalPrice().toFixed(2)}
+        
       </div>
     </Grid>
   ) : (
