@@ -1,6 +1,8 @@
 
 
 body{
+  margin: 0;            
+  padding: 0;    
   background-image: url("../src/assets/1600w-F2CyNS5sQdM.webp"); 
   background-repeat: no-repeat; 
   background-size: cover; 
