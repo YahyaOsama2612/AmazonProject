@@ -4,8 +4,16 @@ import {
   selectCartItems,
 } from "../app/applications/cart/cartSlice";
 import { useAppDispatch } from "../app/store";
-import { Grid } from "@mui/material";
+import {
+  Box,
+  Card,
+  CardContent,
+  CardMedia,
+  Grid,
+  Typography,
+} from "@mui/material";
 import { memo } from "react";
+import { motion } from "framer-motion";
 
 const CartPage = () => {
   const { cartItems } = useSelector(selectCartItems);
@@ -18,35 +26,61 @@ const CartPage = () => {
   return cartItems.length > 0 ? (
     <Grid container direction="row" justifyContent="center" spacing={3}>
       {cartItems.map((product) => (
-        <Grid xs={12} sm={6} md={4} lg={3} key={product.id}>
-          <img
-            style={{ marginTop: "50px", width: "200px" }}
-            src={product.thumbnail}
-            alt={`product ${product.id} image`}
-          />
-
-          <div>
-            <h5 style={{ margin: 20 }}>{product.title}</h5>
-
-            <div>
-              <p>
-                <span style={{ margin: 20 }}>${product.price}</span>
-              </p>
-              <div style={{ margin: 20 }}>
-                <span>Quantity: {product.quantity}</span>
-                <a>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 448 512"
-                    style={{ height: 15, marginLeft: 10 }}
-                    onClick={() => dispatch(removeItemToCart(product))}
-                  >
-                    <path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z" />
-                  </svg>
-                </a>
-              </div>
-            </div>
-          </div>
+        <Grid item xs={12} sm={6} md={4} lg={3} key={product.id} mt={5}>
+          <Card
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              boxShadow: 3,
+              borderRadius: "8px",
+              border: "1px solid pink",
+            }}
+          >
+            {" "}
+            <CardMedia
+              component="img"
+              alt={`product ${product.id} image`}
+              image={product.thumbnail}
+              sx={{
+                height: 200,
+                objectFit: "cover",
+                borderRadius: "8px 8px 0 0",
+              }}
+            />
+            <CardContent sx={{ padding: 2 }}>
+              <Typography
+                variant="h6"
+                sx={{ fontWeight: "bold", marginBottom: 1, fontSize: "17px" }}
+              >
+                {product.title}
+              </Typography>
+              <Typography
+                variant="h5"
+                sx={{ fontWeight: "bold", marginBottom: 2 }}
+              >
+                ${product.price}
+              </Typography>
+              <Box sx={{ display: "flex", justifyContent: "center" }}>
+                <motion.div
+                  initial={{ scale: 1 }}
+                  whileHover={{ scale: 1.2 }}
+                  whileTap={{ scale: 0.8 }}
+                >
+                  <span>Quantity: {product.quantity}</span>
+                  <a>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 448 512"
+                      style={{ height: 15, marginLeft: 10 }}
+                      onClick={() => dispatch(removeItemToCart(product))}
+                    >
+                      <path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z" />
+                    </svg>
+                  </a>
+                </motion.div>
+              </Box>
+            </CardContent>
+          </Card>
         </Grid>
       ))}
       <div
@@ -67,4 +101,4 @@ const CartPage = () => {
   );
 };
 
-export default memo(CartPage) ;
+export default memo(CartPage);
