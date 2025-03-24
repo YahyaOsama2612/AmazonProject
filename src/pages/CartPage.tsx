@@ -15,11 +15,10 @@ import {
 import { memo } from "react";
 import { motion } from "framer-motion";
 
-
 const CartPage = () => {
   const { cartItems } = useSelector(selectCartItems);
   const dispatch = useAppDispatch();
-  
+
   const calculateTotalPrice = () => {
     return cartItems.reduce((total, product) => {
       return total + product.price * product.quantity;
@@ -27,10 +26,8 @@ const CartPage = () => {
   };
   return cartItems.length > 0 ? (
     <Grid container direction="row" justifyContent="center" spacing={3}>
-      
       {cartItems.map((product) => (
         <Grid item xs={12} sm={6} md={4} lg={3} key={product.id} mt={5}>
-      
           <Card
             sx={{
               display: "flex",
@@ -46,17 +43,24 @@ const CartPage = () => {
               alt={`product ${product.id} image`}
               image={product.thumbnail}
               sx={{
-                height: 200,
+                height: 150,
                 objectFit: "cover",
                 borderRadius: "8px 8px 0 0",
+                borderBottom: "3px solid pink"
               }}
             />
             <CardContent sx={{ padding: 2 }}>
               <Typography
-                variant="h6"
-                sx={{ fontWeight: "bold", marginBottom: 1, fontSize: "17px" }}
+                variant="h3"
+                sx={{ fontWeight: "bold", marginBottom: 1, fontSize: "13px" }}
               >
                 {product.title}
+              </Typography>
+              <Typography
+                variant="h6"
+                sx={{ fontWeight: "bold", marginBottom: 1, fontSize: "8px" }}
+              >
+                {product.description}
               </Typography>
               <Typography
                 variant="h5"
@@ -97,7 +101,7 @@ const CartPage = () => {
           </Card>
         </Grid>
       ))}
-      
+
       <div
         style={{
           position: "fixed",
@@ -109,7 +113,6 @@ const CartPage = () => {
         }}
       >
         Total Price: ${calculateTotalPrice().toFixed(2)}
-        
       </div>
     </Grid>
   ) : (

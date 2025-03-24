@@ -22,9 +22,9 @@ const Products = () => {
     error,
   } = usequeryhook({
     queryKey: ["productList"],
-    url: "/products?limit=10&select=title,price,thumbnail",
+    url: "/products?limit=10&select=title,price,thumbnail,description",
   });
- 
+
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error loading products</div>;
 
@@ -50,14 +50,21 @@ const Products = () => {
                   height: 200,
                   objectFit: "cover",
                   borderRadius: "8px 8px 0 0",
+                  borderBottom: "3px solid pink",
                 }}
               />
               <CardContent sx={{ padding: 2 }}>
                 <Typography
-                  variant="h6"
+                  variant="h3"
                   sx={{ fontWeight: "bold", marginBottom: 1, fontSize: "13px" }}
                 >
                   {product.title}
+                </Typography>
+                <Typography
+                  variant="h6"
+                  sx={{ fontWeight: "bold", marginBottom: 1, fontSize: "10px" }}
+                >
+                  {product.description}
                 </Typography>
 
                 <Typography
@@ -72,9 +79,8 @@ const Products = () => {
                     whileHover={{ scale: 1.2 }}
                     whileTap={{ scale: 0.8 }}
                     onClick={() => {
-                      dispatch(addItemToCart(product)); 
+                      dispatch(addItemToCart(product));
                     }}
-                    
                   >
                     <ShoppingCart style={{ cursor: "pointer" }} />
                   </motion.div>

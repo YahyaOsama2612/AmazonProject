@@ -2,9 +2,10 @@ import { memo } from "react";
 import Navbar from "../components/NavBar";
 import Productslist from "../components/Productslist";
 
+
 const HomePage = () => {
   return (
-    <div>
+    <div >
       <Navbar/>
        <Productslist/> 
     </div>
