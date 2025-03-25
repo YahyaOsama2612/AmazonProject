@@ -6,18 +6,7 @@ import {
   removeItemFromShoppingCart,
 } from "../../../shared/utilits/functions";
 import { RootState } from "../../store";
-const loadCartFromLocalStorage = (): IProduct[] => {
-  const savedCart = localStorage.getItem("cartItems");
-  if (savedCart) {
-    try {
-      return JSON.parse(savedCart);
-    } catch (e) {
-      console.error("Error parsing cart from localStorage", e);
-      return [];
-    }
-  }
-  return [];
-};
+
 const saveCartToLocalStorage = (cartItems: IProduct[]) => {
   try {
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
@@ -27,11 +16,13 @@ const saveCartToLocalStorage = (cartItems: IProduct[]) => {
 };
 
 const initialState: CounterState = {
-  cartItems: loadCartFromLocalStorage()
+  cartItems: localStorage.getItem("cartItems") 
+    ? JSON.parse(localStorage.getItem("cartItems") || '[]') 
+    : [],
 };
 
 const cartSlice = createSlice({
-  name: "cart", // ** Attached with Store
+  name: "cart",
   initialState,
   reducers: {
     addItemToCart: (state, actionPayload: PayloadAction<IProduct>) => {
@@ -39,19 +30,28 @@ const cartSlice = createSlice({
         state.cartItems,
         actionPayload.payload
       );
-      saveCartToLocalStorage(state.cartItems)
+      saveCartToLocalStorage(state.cartItems);
     },
     removeItemToCart: (state, actionPayload: PayloadAction<IProduct>) => {
       state.cartItems = removeItemFromShoppingCart(
         state.cartItems,
         actionPayload.payload
       );
-      saveCartToLocalStorage(state.cartItems)
+      saveCartToLocalStorage(state.cartItems);
     },
+    clearCart: (state) => {
+      state.cartItems = [];
+      localStorage.removeItem("cartItems");
+    }
   },
 });
 
-export const { addItemToCart, removeItemToCart } = cartSlice.actions;
+export const { 
+  addItemToCart, 
+  removeItemToCart, 
+  clearCart 
+} = cartSlice.actions;
+
 export const selectCartItems = (state: RootState) => state.cart;
 
 export default cartSlice.reducer;
