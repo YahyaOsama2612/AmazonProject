@@ -1,21 +1,23 @@
 import { useSelector } from "react-redux";
-import {
-  removeItemToCart,
-  selectCartItems,
+import {   
+  removeItemToCart,   
+  selectCartItems, 
 } from "../app/applications/cart/cartSlice";
 import { useAppDispatch } from "../app/store";
-import {
-  Box,
-  Card,
-  CardContent,
-  CardMedia,
-  Grid,
-  Typography,
+import {   
+  Box,   
+  Card,   
+  CardContent,   
+  CardMedia,   
+  Grid,   
+  Typography, 
 } from "@mui/material";
-// import { memo } from "react";
+import { memo } from "react";
 import { motion } from "framer-motion";
+import { IProduct } from "../interfaces"; 
 
 const CartPage = () => {
+  
   const { cartItems } = useSelector(selectCartItems);
   const dispatch = useAppDispatch();
 
@@ -24,9 +26,10 @@ const CartPage = () => {
       return total + product.price * product.quantity;
     }, 0);
   };
+
   return cartItems.length > 0 ? (
     <Grid container direction="row" justifyContent="center" spacing={3}>
-      {cartItems.map((product) => (
+      {cartItems.map((product: IProduct) => (
         <Grid item xs={12} sm={6} md={4} lg={3} key={product.id} mt={5}>
           <Card
             sx={{
@@ -37,7 +40,6 @@ const CartPage = () => {
               border: "3px solid pink",
             }}
           >
-            {" "}
             <CardMedia
               component="img"
               alt={`product ${product.id} image`}
@@ -68,7 +70,6 @@ const CartPage = () => {
               >
                 ${product.price}
               </Typography>
-
               <Box sx={{ display: "flex" }}>
                 <Typography
                   variant="h5"
@@ -102,7 +103,7 @@ const CartPage = () => {
           </Card>
         </Grid>
       ))}
-
+      
       <div
         style={{
           position: "fixed",
@@ -121,4 +122,4 @@ const CartPage = () => {
   );
 };
 
-export default CartPage;
+export default memo(CartPage);
