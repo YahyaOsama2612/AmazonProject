@@ -17,8 +17,8 @@ import { motion } from "framer-motion";
 import { IProduct } from "../interfaces"; 
 
 const CartPage = () => {
-  
-  const { cartItems } = useSelector(selectCartItems);
+
+  const { cartItems }= useSelector(selectCartItems);
   const dispatch = useAppDispatch();
 
   const calculateTotalPrice = () => {

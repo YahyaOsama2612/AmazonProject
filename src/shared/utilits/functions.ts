@@ -36,3 +36,4 @@ export const removeItemFromShoppingCart = (
   }
   return cartItems;
 };
+
