@@ -12,7 +12,7 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import { memo } from "react";
+// import { memo } from "react";
 import { motion } from "framer-motion";
 
 const CartPage = () => {
@@ -121,4 +121,4 @@ const CartPage = () => {
   );
 };
 
-export default memo(CartPage);
+export default CartPage;
