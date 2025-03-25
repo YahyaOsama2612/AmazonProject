@@ -89,6 +89,7 @@ const CartPage = () => {
                         height: 15,
                         marginLeft: 10,
                         transform: "translate(0px, -7px)",
+                        cursor:"pointer"
                       }}
                       onClick={() => dispatch(removeItemToCart(product))}
                     >
