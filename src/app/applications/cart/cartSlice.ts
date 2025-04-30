@@ -15,7 +15,7 @@ const loadCartItemsFromLocalStorage = (): IProduct[] => {
   return [];
 };
 
-// Set cart items to localStorage
+
 const saveCartItemsToLocalStorage = (cartItems: IProduct[]): void => {
   localStorage.setItem("cartItems", JSON.stringify(cartItems));
 };

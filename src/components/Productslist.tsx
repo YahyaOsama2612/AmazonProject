@@ -13,6 +13,7 @@ import usequeryhook from "../hooks/usequeryhook";
 import { IProduct } from "../interfaces";
 import { ShoppingCart } from "lucide-react";
 import { memo } from "react";
+import Spinner from "./Spinner";
 
 const Products = () => {
   const dispatch = useDispatch();
@@ -25,8 +26,8 @@ const Products = () => {
     url: "/products?limit=10&select=title,price,thumbnail,description",
   });
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error loading products</div>;
+  if (isLoading) return <div><Spinner/></div>;
+  if (error) return <div><p className="error">{String(error)}</p></div>;
 
   return (
     <Grid container direction="row" justifyContent="center" spacing={3}>
@@ -39,7 +40,7 @@ const Products = () => {
                 flexDirection: "column",
                 boxShadow: 3,
                 borderRadius: "8px",
-                border: "3px solid pink",
+                border: "3px solid orange",
               }}
             >
               <CardMedia
@@ -50,7 +51,7 @@ const Products = () => {
                   height: 200,
                   objectFit: "cover",
                   borderRadius: "8px 8px 0 0",
-                  borderBottom: "3px solid pink",
+                  borderBottom: "3px solid orange",
                 }}
               />
               <CardContent sx={{ padding: 2 }}>
